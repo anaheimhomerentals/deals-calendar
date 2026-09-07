@@ -129,6 +129,10 @@
   .todaybtn:hover{background:var(--teal);color:#fff;}
   .panel-actions{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
   .panel-actions input[type="date"]{border:1px solid var(--border);border-radius:8px;padding:6px 8px;background:var(--card);color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;}
+  .live-clock{margin:2px 0 0;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);}
+  .time-badge{font-size:11px;margin-top:6px;padding:4px 8px;border-radius:6px;display:inline-block;font-weight:600;}
+  .time-active{background:#E4F3EC;color:#1F6B4A;}
+  .time-inactive{background:#F1EDE3;color:var(--ink-soft);font-weight:500;}
 </style>
 </head>
 <body>
@@ -146,6 +150,7 @@
       <button id="prevDay" class="dayarrow" aria-label="Previous day">‹</button>
       <div class="panel-date">
         <h2 id="panelTitle">Select a day</h2>
+        <p class="live-clock" id="liveClock"></p>
         <span id="liveClock" class="live-clock"></span>
         <button id="todayBtn" class="todaybtn" type="button">Today</button>
       </div>
@@ -276,11 +281,12 @@ const SEED_DEALS = [
     brand: 'RH BBQ',
     discount: '$15.99',
     item: 'Mini Lunch AYCE: thin sliced pork belly, pork belly, chicken teriyaki, steamed egg, miso soup, rice, kimchi',
+    time: '11:30 AM–3:00 PM',
     address: '18311 Colima Rd, Rowland Heights, CA 91748',
     lat: 33.9895237,
     lng: -117.9050001,
     link: '',
-    note: 'Daily 11:30 AM–3:00 PM, 60-min dining limit, kids $9.99',
+    note: '60-min dining limit, kids $9.99',
     createdAt: Date.now() - 2000
   },
   {
@@ -433,6 +439,51 @@ const SEED_DEALS = [
     link: 'https://pandaexpress.com/dodgerswin',
     note: 'Only valid the day after a Dodgers HOME win, until 11:59pm — order in the Panda Express app, Panda Rewards members only, 1 per account/day.',
     createdAt: Date.now() + 8000
+  },
+  {
+    id: 'seed-el-pollo-loco-0909',
+    repeat: 'once',
+    date: '2026-09-09',
+    daysOfWeek: null,
+    brand: 'El Pollo Loco',
+    discount: 'Free w/ drink purchase',
+    item: '2 Pc Leg & Thigh Meal (choice of 2 sides + tortillas)',
+    address: '',
+    lat: null,
+    lng: null,
+    link: 'https://slickdeals.net/f/19976496-el-pollo-loco-free-2-pc-leg-thigh-chicken-meal-with-purchase-of-drink-on-9-9-2026',
+    note: 'National Grilled Chicken Day promo. Must be a (free) Loco Rewards member — redeem via app/online reward at checkout, or scan the QR code in-store. Not valid on combos, delivery apps, or with other offers; one-time use.',
+    createdAt: Date.now() + 9000
+  },
+  {
+    id: 'seed-mcdonalds-bigmac-0909',
+    repeat: 'once',
+    date: '2026-09-09',
+    daysOfWeek: null,
+    brand: "McDonald's",
+    discount: 'Free w/ $2+ purchase',
+    item: 'Big Mac sandwich',
+    address: '',
+    lat: null,
+    lng: null,
+    link: 'https://slickdeals.net/f/19978290-9-9-only-free-big-mac-sandwich-with-2-purchase-app-deal',
+    note: "App-only deal, 9/9 only, at participating locations. Should appear under \"Rewards & Deals\" in the McDonald's app on the day. Some reports suggest it may be regional (unconfirmed) — check your app to be sure.",
+    createdAt: Date.now() + 10000
+  },
+  {
+    id: 'seed-happy-lamb-sg',
+    repeat: 'daily',
+    date: null,
+    daysOfWeek: null,
+    brand: 'Happy Lamb Hot Pot',
+    discount: '$9.90',
+    item: 'Tender Chicken Hot Pot Set — house clear broth, tender chicken fillet (125g), classic hot pot selection, fresh veggies, appetizer',
+    address: '140 W Valley Blvd Ste 213, San Gabriel, CA 91776',
+    lat: 34.0778461,
+    lng: -118.1020025,
+    link: 'https://m.yelp.com/biz/happy-lamb-hot-pot-san-gabriel-2',
+    note: 'Includes unlimited rice & noodles. Broth upgrade (spicy, tomato, or hot & sour) +$2 each. Condiment bar $1.50/person.',
+    createdAt: Date.now() + 11000
   }
 ];
 
@@ -634,7 +685,7 @@ function render(){
 
 
 
-function dealCardHtml(x){
+function dealCardHtml(x, showLiveStatus){
   let triggerBadge = '';
   if(x.id === 'seed-panda-dodgers'){
     if(dodgersDealStatus === 'active'){
@@ -645,6 +696,17 @@ function dealCardHtml(x){
       triggerBadge = `<div class="deal-trigger deal-trigger-unknown">Couldn't auto-check today's status — <a href="https://www.mlb.com/dodgers/schedule" target="_blank" rel="noopener">check the schedule</a>.</div>`;
     }
   }
+  let timeBadge = '';
+  if(x.time && showLiveStatus){
+    const status = getTimeStatus(x);
+    if(status === 'now'){
+      timeBadge = `<div class="time-badge time-active">🟢 Valid right now</div>`;
+    } else if(status === 'upcoming'){
+      timeBadge = `<div class="time-badge time-inactive">Starts later today at ${escapeHtml(x.time.split(/–|—|-/)[0].trim())}</div>`;
+    } else if(status === 'ended'){
+      timeBadge = `<div class="time-badge time-inactive">Already ended for today</div>`;
+    }
+  }
   return `
     <div class="deal" data-id="${x.id}">
       <div class="discount">${escapeHtml(x.discount || '—')}</div>
@@ -652,6 +714,7 @@ function dealCardHtml(x){
         <div class="deal-brand">${escapeHtml(x.brand || 'Untitled')}${x.repeat !== 'once' ? ` <span class="schedule-badge">${escapeHtml(scheduleLabel(x))}</span>` : ''}</div>
         ${x.item ? `<div class="deal-item">${escapeHtml(x.item)}</div>` : ''}
         ${x.time ? `<div class="deal-time">${escapeHtml(x.time)}</div>` : ''}
+        ${timeBadge}
         ${x.address ? `<div class="deal-address">${escapeHtml(x.address)}</div>` : ''}
         ${x.note ? `<div class="deal-note">${escapeHtml(x.note)}</div>` : ''}
         ${triggerBadge}
@@ -746,17 +809,25 @@ function renderPanel(){
   const dow = d.getDay();
   document.getElementById('panelTitle').textContent = d.toLocaleDateString('en-US',{weekday:'long', month:'long', day:'numeric'});
   const todayStr = fmt(new Date());
+  const isToday = (selectedDate === todayStr);
   const todayBtn = document.getElementById('todayBtn');
-  todayBtn.style.visibility = (selectedDate === todayStr) ? 'hidden' : 'visible';
+  todayBtn.style.visibility = isToday ? 'hidden' : 'visible';
   const jumpInput = document.getElementById('jumpDate');
   if(jumpInput.value !== selectedDate) jumpInput.value = selectedDate;
+  const clockEl = document.getElementById('liveClock');
+  clockEl.textContent = isToday
+    ? `It's ${new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})} — showing what's valid right now`
+    : '';
   const body = document.getElementById('panelBody');
-  const dayDeals = sortByTime(deals.filter(x => dealAppliesOnDate(x, selectedDate, dow)));
+  let dayDeals = sortByTime(deals.filter(x => dealAppliesOnDate(x, selectedDate, dow)));
+  if(isToday){
+    dayDeals = dayDeals.filter(x => !(x.time && getTimeStatus(x) === 'ended'));
+  }
   if(!dayDeals.length){
     body.innerHTML = '<p class="empty-state">No deals saved for this day yet.</p>';
     return;
   }
-  body.innerHTML = dayDeals.map(dealCardHtml).join('');
+  body.innerHTML = dayDeals.map(x => dealCardHtml(x, isToday)).join('');
   wireDeleteButtons(body);
 }
 
@@ -768,7 +839,7 @@ function renderStanding(){
     body.innerHTML = '<p class="empty-state">No recurring deals yet. Add one and mark it daily or weekly.</p>';
     return;
   }
-  body.innerHTML = standing.map(dealCardHtml).join('');
+  body.innerHTML = standing.map(x => dealCardHtml(x, true)).join('');
   wireDeleteButtons(body);
 }
 
@@ -969,6 +1040,7 @@ async function checkDodgersDeal(){
 
 loadDeals();
 checkDodgersDeal();
+setInterval(render, 30000); // keep the live clock and "valid right now" badges fresh
 </script>
 </body>
 </html>
