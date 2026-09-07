@@ -24,6 +24,8 @@
     --mustard:#D98F1E;
     --mustard-ink:#4A3007;
     --mustard-tint:#F5E4C1;
+    --card:#FFFDF8;
+    --border:#DED2AE;
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;}
@@ -32,61 +34,17 @@
   .topbar{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap;}
   .topbar h1{font-size:26px;}
   .topbar p{margin:4px 0 0;color:var(--ink-soft);font-size:14px;}
-  .addbtn{background:var(--red);color:#FFF5EC;border:none;font-family:'Inter',sans-serif;font-weight:600;font-size:14px;padding:11px 18px;border-radius:8px;cursor:pointer;white-space:nowrap;}
-  .addbtn:hover{background:var(--red-ink);}
-  .nav{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
-  .nav button{background:var(--paper-raised);border:1px solid var(--line);color:var(--ink);font-size:16px;width:34px;height:34px;border-radius:8px;cursor:pointer;}
-  .nav button:hover{border-color:var(--ink-soft);}
-  .nav .month{font-family:'Fraunces',serif;font-size:19px;font-weight:600;min-width:170px;}
-  .weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:6px;}
-  .weekdays span{font-size:11px;color:var(--ink-soft);text-align:center;letter-spacing:.04em;}
-  .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
-  .day{position:relative;min-height:76px;background:var(--paper-raised);border:1px solid var(--line);border-radius:8px;padding:6px 6px 8px;cursor:pointer;text-align:left;font-family:'Inter',sans-serif;}
-  .day:hover{border-color:var(--ink-soft);}
-  .day.empty{background:transparent;border-color:transparent;cursor:default;}
-  .day.today{border-color:var(--mustard);border-width:2px;}
-  .day.selected{outline:2px solid var(--red);outline-offset:-2px;}
-  .daynum{font-size:13px;font-weight:500;color:var(--ink);}
-  .day.today .daynum{color:var(--mustard-ink);}
-  .tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px;}
-  .tagdot{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;background:var(--red-tint);color:var(--red-ink);border-radius:4px;padding:2px 5px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .panel{margin-top:26px;background:var(--paper-raised);border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
-  .panel-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
-  .panel-head h2{font-size:18px;}
-  .panel-head button{background:none;border:1px solid var(--line);border-radius:7px;font-size:13px;font-weight:600;padding:7px 12px;cursor:pointer;color:var(--ink);font-family:'Inter',sans-serif;}
   .empty-state{color:var(--ink-soft);font-size:14px;padding:8px 0 4px;}
-  .deal{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px dashed var(--line);}
+  .deal{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:12px 0;border-top:1px dashed var(--line);}
   .deal:first-of-type{border-top:none;}
-  .discount{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:14px;background:var(--teal-tint);color:var(--teal-ink);border-radius:6px;padding:6px 9px;white-space:nowrap;min-width:52px;text-align:center;}
-  .deal-body{flex:1;min-width:0;}
-  .deal-brand{font-weight:600;font-size:14px;}
+  .discount{font-family:'Fraunces',serif;font-weight:600;font-size:15px;background:var(--teal-tint);color:var(--teal-ink);border-radius:6px;padding:6px 9px;white-space:nowrap;text-align:center;margin-bottom:4px;}
+  .deal-brand{font-weight:600;font-size:15px;}
   .deal-item{font-size:13px;color:var(--ink-soft);margin-top:1px;}
   .deal-note{font-size:12px;color:var(--ink-soft);margin-top:4px;font-style:italic;}
   .deal-link{font-size:12px;color:var(--red);text-decoration:none;display:inline-block;margin-top:4px;}
   .deal-link:hover{text-decoration:underline;}
-  .deal-del{background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:13px;padding:4px;}
-  .deal-del:hover{color:var(--red);}
-  .modal-wrap{position:fixed;inset:0;background:rgba(34,27,20,.4);display:none;align-items:center;justify-content:center;padding:20px;z-index:10;}
-  .modal-wrap.open{display:flex;}
-  .modal{background:var(--paper-raised);border-radius:12px;padding:22px 24px;width:100%;max-width:400px;}
-  .modal h2{font-size:18px;margin-bottom:14px;}
-  .field{margin-bottom:12px;}
-  .field label{display:block;font-size:12px;color:var(--ink-soft);margin-bottom:4px;}
-  .field input,.field textarea{width:100%;border:1px solid var(--line);border-radius:7px;padding:8px 10px;font-family:'Inter',sans-serif;font-size:14px;background:#FFFDF8;color:var(--ink);}
-  .field textarea{resize:vertical;min-height:44px;}
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-  .modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;}
-  .modal-actions button{font-family:'Inter',sans-serif;font-weight:600;font-size:13px;padding:9px 15px;border-radius:7px;cursor:pointer;}
-  .btn-cancel{background:none;border:1px solid var(--line);color:var(--ink);}
-  .btn-save{background:var(--red);border:none;color:#FFF5EC;}
-  .err{color:var(--red);font-size:12px;margin-top:2px;}
   .loading{color:var(--ink-soft);font-size:14px;padding:20px 0;}
-  .repeat-toggle{display:flex;gap:6px;margin-bottom:12px;}
-  .repeat-toggle button{flex:1;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;padding:8px 6px;border-radius:7px;border:1px solid var(--line);background:#FFFDF8;color:var(--ink-soft);cursor:pointer;}
-  .repeat-toggle button.active{background:var(--mustard-tint);border-color:var(--mustard);color:var(--mustard-ink);}
-  .dow-picker{display:flex;gap:5px;flex-wrap:wrap;}
-  .dow-picker button{width:36px;height:36px;border-radius:7px;border:1px solid var(--line);background:#FFFDF8;color:var(--ink-soft);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;}
-  .dow-picker button.active{background:var(--red-tint);border-color:var(--red);color:var(--red-ink);}
   .standing{margin-top:16px;background:var(--paper-raised);border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
   .standing h2{font-size:18px;margin-bottom:2px;}
   .standing p.sub{color:var(--ink-soft);font-size:13px;margin:0 0 10px;}
@@ -101,14 +59,6 @@
   .leaflet-popup-content{font-family:'Inter',sans-serif;font-size:13px;margin:10px 12px;}
   .popup-brand{font-weight:600;margin-bottom:2px;}
   .popup-schedule{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mustard-ink);}
-  .sync-banner{background:var(--mustard-tint);border:1px solid var(--mustard);border-radius:10px;padding:12px 14px;margin-bottom:18px;font-size:13px;color:var(--mustard-ink);}
-  .sync-banner .sync-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-  .sync-banner strong{font-family:'Fraunces',serif;font-weight:600;}
-  .sync-banner button{font-family:'Inter',sans-serif;font-weight:600;font-size:12px;padding:6px 10px;border-radius:6px;border:1px solid var(--mustard);background:#FFFDF8;color:var(--mustard-ink);cursor:pointer;}
-  .sync-banner button:hover{background:var(--mustard-tint);}
-  .sync-banner input{font-family:'IBM Plex Mono',monospace;font-size:12px;border:1px solid var(--mustard);border-radius:6px;padding:6px 8px;background:#FFFDF8;color:var(--ink);width:150px;}
-  .sync-code{font-family:'IBM Plex Mono',monospace;font-weight:600;background:#FFFDF8;border:1px solid var(--mustard);border-radius:6px;padding:4px 8px;letter-spacing:.03em;}
-  .sync-status{font-size:11px;color:var(--ink-soft);margin-top:4px;}
   .deal-trigger{font-size:11px;margin-top:6px;padding:4px 8px;border-radius:6px;display:inline-block;}
   .deal-trigger-active{background:#E4F3EC;color:#1F6B4A;font-weight:600;}
   .deal-trigger-inactive{background:#F1EDE3;color:var(--ink-soft);}
@@ -122,8 +72,8 @@
   .panel-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:10px;}
   .dayarrow{background:var(--card);border:1px solid var(--border);border-radius:8px;width:38px;height:38px;font-size:18px;cursor:pointer;color:var(--ink);}
   .dayarrow:hover{background:var(--mustard-tint);}
-  .panel-date{text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;}
-  .panel-date h2{margin:0;}
+  .panel-date{text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;}
+  .panel-date h2{margin:0;font-size:19px;white-space:nowrap;}
   .live-clock{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);}
   .todaybtn{font-size:11px;font-weight:600;border:1px solid var(--teal);color:var(--teal);background:none;border-radius:6px;padding:2px 8px;cursor:pointer;}
   .todaybtn:hover{background:var(--teal);color:#fff;}
@@ -133,6 +83,20 @@
   .time-badge{font-size:11px;margin-top:6px;padding:4px 8px;border-radius:6px;display:inline-block;font-weight:600;}
   .time-active{background:#E4F3EC;color:#1F6B4A;}
   .time-inactive{background:#F1EDE3;color:var(--ink-soft);font-weight:500;}
+@media (max-width: 480px){
+  .app{padding:16px 12px 48px;}
+  .topbar h1{font-size:21px;}
+  .topbar p{font-size:13px;}
+  .panel, .standing, .mapwrap{padding:14px 14px;}
+  .panel-nav{gap:8px;}
+  .dayarrow{width:32px;height:32px;font-size:16px;flex-shrink:0;}
+  .panel-date h2{font-size:16px;}
+  .live-clock{font-size:11px;}
+  .panel-actions{gap:8px;}
+  #map{height:220px;}
+  .deal{gap:8px;}
+  .discount{min-width:44px;font-size:13px;padding:5px 7px;}
+}
 </style>
 </head>
 <body>
@@ -140,25 +104,21 @@
   <div class="topbar">
     <div>
       <h1>Deal drop calendar</h1>
-      <p>Track sales and discounts you spot on Instagram — one-time drops or standing daily and weekly specials. Use the sync code below to keep this in sync with any other copy of this file.</p>
+      <p>Deals spotted around town — one-time drops or standing daily and weekly specials.</p>
     </div>
-    <button class="addbtn" id="openAdd">+ Add deal</button>
   </div>
-  <div class="sync-banner" id="syncBanner" style="display:none;"></div>
   <div class="panel">
     <div class="panel-nav">
       <button id="prevDay" class="dayarrow" aria-label="Previous day">‹</button>
       <div class="panel-date">
         <h2 id="panelTitle">Select a day</h2>
         <p class="live-clock" id="liveClock"></p>
-        <span id="liveClock" class="live-clock"></span>
         <button id="todayBtn" class="todaybtn" type="button">Today</button>
       </div>
       <button id="nextDay" class="dayarrow" aria-label="Next day">›</button>
     </div>
     <div class="panel-actions">
       <input type="date" id="jumpDate" aria-label="Jump to date">
-      <button id="panelAdd">+ Add for this day</button>
     </div>
     <div id="panelBody"><p class="loading">Loading your deals…</p></div>
   </div>
@@ -177,79 +137,7 @@
   </div>
 </div>
 
-<div class="modal-wrap" id="modalWrap">
-  <div class="modal">
-    <h2>Add a deal</h2>
-    <div class="field">
-      <label>How often</label>
-      <div class="repeat-toggle" id="repeatToggle">
-        <button type="button" data-val="once" class="active">One-time</button>
-        <button type="button" data-val="weekly">Weekly</button>
-        <button type="button" data-val="daily">Daily</button>
-      </div>
-    </div>
-    <div class="field" id="dateField">
-      <label>Date</label>
-      <input type="date" id="f-date">
-    </div>
-    <div class="field" id="dowField" style="display:none;">
-      <label>Which days</label>
-      <div class="dow-picker" id="dowPicker">
-        <button type="button" data-dow="0">Su</button>
-        <button type="button" data-dow="1">Mo</button>
-        <button type="button" data-dow="2">Tu</button>
-        <button type="button" data-dow="3">We</button>
-        <button type="button" data-dow="4">Th</button>
-        <button type="button" data-dow="5">Fr</button>
-        <button type="button" data-dow="6">Sa</button>
-      </div>
-    </div>
-    <div class="row2">
-      <div class="field">
-        <label>Brand or account</label>
-        <input type="text" id="f-brand" placeholder="@brandname">
-      </div>
-      <div class="field">
-        <label>Discount</label>
-        <input type="text" id="f-discount" placeholder="30% off">
-      </div>
-    </div>
-    <div class="field">
-      <label>Item</label>
-      <input type="text" id="f-item" placeholder="What's on sale">
-    </div>
-    <div class="field">
-      <label>Time (optional)</label>
-      <input type="text" id="f-time" placeholder="4:30–10:00 PM">
-    </div>
-    <div class="field">
-      <label>Address (optional)</label>
-      <input type="text" id="f-address" placeholder="Street, city">
-      <input type="hidden" id="f-lat">
-      <input type="hidden" id="f-lng">
-    </div>
-    <div class="field">
-      <label>Link (optional)</label>
-      <input type="text" id="f-link" placeholder="Post or product URL">
-    </div>
-    <div class="field">
-      <label>Note (optional)</label>
-      <textarea id="f-note" placeholder="Code, size, expiry, anything to remember"></textarea>
-    </div>
-    <div class="err" id="f-err" style="display:none;"></div>
-    <div class="modal-actions">
-      <button class="btn-cancel" id="cancelAdd">Cancel</button>
-      <button class="btn-save" id="saveAdd">Save deal</button>
-    </div>
-  </div>
-</div>
-
 <script>
-const SYNC_ID_KEY = 'ig-deals-sync-id';
-const LOCAL_CACHE_KEY = 'ig-deals-cache';
-const JSONBLOB_BASE = 'https://jsonblob.com/api/jsonBlob';
-let syncId = null;
-let syncStatus = 'local'; // 'local' | 'synced' | 'error'
 let dodgersDealStatus = 'unknown'; // 'active' | 'inactive' | 'unknown'
 let deals = [];
 let selectedDate = fmt(new Date());
@@ -484,6 +372,21 @@ const SEED_DEALS = [
     link: 'https://m.yelp.com/biz/happy-lamb-hot-pot-san-gabriel-2',
     note: 'Includes unlimited rice & noodles. Broth upgrade (spicy, tomato, or hot & sour) +$2 each. Condiment bar $1.50/person.',
     createdAt: Date.now() + 11000
+  },
+  {
+    id: 'seed-7eleven-slurpee-0907',
+    repeat: 'once',
+    date: '2026-09-07',
+    daysOfWeek: null,
+    brand: '7-Eleven / Speedway (7Now app)',
+    discount: '$20 off $30+ (code SLURPEE)',
+    item: 'Pizza, wings, subs, sandwiches, desserts, breakfast items, bakery, soups/salads',
+    address: '',
+    lat: null,
+    lng: null,
+    link: 'https://slickdeals.net/f/19980690-7-eleven-7now-app-20-off-30-9-7-26-only-with-code-slurpee',
+    note: 'Order through the 7Now app, apply code SLURPEE at checkout. Select free pickup to skip delivery fees — confirmed to work at both 7-Eleven and Speedway pickup locations. Limit 1 per customer, cannot combine with other offers. Today only.',
+    createdAt: Date.now() + 12000
   }
 ];
 
@@ -511,162 +414,12 @@ function mergeSeeds(){
   return changed;
 }
 
-async function loadDeals(){
-  // Local cache first (per-device instant load), then reconcile with the shared
-  // sync record if a code is set. This runs the same way whether opened in
-  // Claude.ai or as a standalone file, so both can point at the same code.
-  syncId = localStorage.getItem(SYNC_ID_KEY) || null;
-  let cached = [];
-  try{
-    const raw = localStorage.getItem(LOCAL_CACHE_KEY);
-    cached = raw ? JSON.parse(raw) : [];
-  }catch(e){ cached = []; }
-  deals = cached;
+function loadDeals(){
+  deals = [];
   mergeSeeds();
   render();
-
-  if(syncId){
-    try{
-      const res = await fetch(`${JSONBLOB_BASE}/${syncId}`);
-      if(res.ok){
-        const remote = await res.json();
-        if(Array.isArray(remote)){
-          deals = remote;
-          mergeSeeds();
-          syncStatus = 'synced';
-        }
-      } else {
-        syncStatus = 'error';
-      }
-    }catch(e){
-      syncStatus = 'error';
-    }
-  }
-  render();
 }
 
-async function saveDeals(){
-  try{ localStorage.setItem(LOCAL_CACHE_KEY, JSON.stringify(deals)); }catch(e){}
-  if(syncId){
-    try{
-      const res = await fetch(`${JSONBLOB_BASE}/${syncId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(deals)
-      });
-      syncStatus = res.ok ? 'synced' : 'error';
-    }catch(e){
-      syncStatus = 'error';
-    }
-    renderSyncBanner();
-  }
-}
-
-async function createSharedBoard(){
-  try{
-    const res = await fetch(JSONBLOB_BASE, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(deals)
-    });
-    if(!res.ok) throw new Error('create failed');
-    const loc = res.headers.get('Location') || '';
-    const id = loc.split('/').pop();
-    if(!id) throw new Error('no id returned');
-    syncId = id;
-    localStorage.setItem(SYNC_ID_KEY, id);
-    syncStatus = 'synced';
-    renderSyncBanner();
-  }catch(e){
-    syncStatus = 'error';
-    renderSyncBanner();
-  }
-}
-
-async function joinSharedBoard(code){
-  code = (code || '').trim();
-  if(!code) return;
-  try{
-    const res = await fetch(`${JSONBLOB_BASE}/${code}`);
-    if(!res.ok) throw new Error('not found');
-    const remote = await res.json();
-    if(!Array.isArray(remote)) throw new Error('bad data');
-    syncId = code;
-    localStorage.setItem(SYNC_ID_KEY, code);
-    deals = remote;
-    mergeSeeds();
-    localStorage.setItem(LOCAL_CACHE_KEY, JSON.stringify(deals));
-    syncStatus = 'synced';
-    render();
-  }catch(e){
-    syncStatus = 'error';
-    renderSyncBanner('That code wasn\'t found. Double-check it and try again.');
-  }
-}
-
-function leaveSharedBoard(){
-  syncId = null;
-  localStorage.removeItem(SYNC_ID_KEY);
-  syncStatus = 'local';
-  renderSyncBanner();
-}
-
-// Claude's artifact preview runs in a sandboxed iframe with a strict CSP that
-// blocks fetch() to arbitrary external services. window.storage only exists
-// in that sandbox, so its presence is a reliable signal we're in the preview
-// rather than a normal browser tab (e.g. the downloaded file, opened directly).
-const LIKELY_CLAUDE_PREVIEW = (typeof window.storage !== 'undefined');
-const IS_FILE_PROTOCOL = (typeof location !== 'undefined' && location.protocol === 'file:');
-
-function syncErrorExplanation(){
-  if(LIKELY_CLAUDE_PREVIEW){
-    return 'Couldn\'t reach the sync service — Claude\'s chat preview blocks connections to outside services. Download this file and open it directly in a browser tab instead.';
-  }
-  if(IS_FILE_PROTOCOL){
-    return 'Couldn\'t reach the sync service — this file is open directly from disk (address bar starts with "file://"), and browsers block that kind of connection from local files for security. Try hosting this file somewhere (even a free static host, or a local server) instead of double-clicking it.';
-  }
-  return 'Couldn\'t reach the sync server — check your internet connection and try again. If it keeps happening, the sync service itself (jsonblob.com) may be temporarily down.';
-}
-
-function renderSyncBanner(errorMsg){
-  const el = document.getElementById('syncBanner');
-  el.style.display = 'block';
-  if(syncId && syncStatus === 'synced'){
-    el.innerHTML = `
-      <div class="sync-row">
-        <span>🔗 Synced — share this file plus this code so others see the same deals:</span>
-        <span class="sync-code" id="syncCodeText">${escapeHtml(syncId)}</span>
-        <button id="copyCodeBtn" type="button">Copy code</button>
-        <button id="leaveSyncBtn" type="button">Stop syncing</button>
-      </div>`;
-    document.getElementById('copyCodeBtn').addEventListener('click', () => {
-      navigator.clipboard?.writeText(syncId).catch(()=>{});
-    });
-    document.getElementById('leaveSyncBtn').addEventListener('click', leaveSharedBoard);
-  } else {
-    const previewNote = (LIKELY_CLAUDE_PREVIEW && syncStatus !== 'error')
-      ? '<div class="sync-status">Heads up: Claude\'s chat preview blocks connections to outside sync services. Download this file and open it in a browser tab to set up or use syncing.</div>'
-      : '';
-    el.innerHTML = `
-      <div class="sync-row">
-        <strong>Not synced yet</strong> — deals are only saved on this device.
-      </div>
-      <div class="sync-row" style="margin-top:8px;">
-        <button id="startSyncBtn" type="button">Start a shared board</button>
-        <span>or</span>
-        <input type="text" id="joinCodeInput" placeholder="Paste a code">
-        <button id="joinSyncBtn" type="button">Join</button>
-      </div>
-      ${errorMsg ? `<div class="sync-status">${escapeHtml(errorMsg)}</div>` : ''}
-      ${syncStatus === 'error' && !errorMsg ? `<div class="sync-status">${escapeHtml(syncErrorExplanation())}</div>` : ''}
-      ${previewNote}
-    `;
-    document.getElementById('startSyncBtn').addEventListener('click', createSharedBoard);
-    document.getElementById('joinSyncBtn').addEventListener('click', () => {
-      joinSharedBoard(document.getElementById('joinCodeInput').value);
-    });
-  }
-}
 
 function dealAppliesOnDate(x, dateStr, dow){
   if(x.endDate && dateStr > x.endDate) return false;
@@ -677,7 +430,6 @@ function dealAppliesOnDate(x, dateStr, dow){
 }
 
 function render(){
-  try{ renderSyncBanner(); }catch(e){ console.error('renderSyncBanner failed', e); }
   try{ renderPanel(); }catch(e){ console.error('renderPanel failed', e); }
   try{ renderStanding(); }catch(e){ console.error('renderStanding failed', e); }
   try{ renderMap(); }catch(e){ console.error('renderMap failed', e); }
@@ -710,17 +462,14 @@ function dealCardHtml(x, showLiveStatus){
   return `
     <div class="deal" data-id="${x.id}">
       <div class="discount">${escapeHtml(x.discount || '—')}</div>
-      <div class="deal-body">
-        <div class="deal-brand">${escapeHtml(x.brand || 'Untitled')}${x.repeat !== 'once' ? ` <span class="schedule-badge">${escapeHtml(scheduleLabel(x))}</span>` : ''}</div>
-        ${x.item ? `<div class="deal-item">${escapeHtml(x.item)}</div>` : ''}
-        ${x.time ? `<div class="deal-time">${escapeHtml(x.time)}</div>` : ''}
-        ${timeBadge}
-        ${x.address ? `<div class="deal-address">${escapeHtml(x.address)}</div>` : ''}
-        ${x.note ? `<div class="deal-note">${escapeHtml(x.note)}</div>` : ''}
-        ${triggerBadge}
-        ${x.link ? `<a class="deal-link" href="${escapeHtml(x.link)}" target="_blank" rel="noopener">View post</a>` : ''}
-      </div>
-      <button class="deal-del" aria-label="Delete deal" data-id="${x.id}">✕</button>
+      <div class="deal-brand">${escapeHtml(x.brand || 'Untitled')}${x.repeat !== 'once' ? ` <span class="schedule-badge">${escapeHtml(scheduleLabel(x))}</span>` : ''}</div>
+      ${x.item ? `<div class="deal-item">${escapeHtml(x.item)}</div>` : ''}
+      ${x.time ? `<div class="deal-time">${escapeHtml(x.time)}</div>` : ''}
+      ${timeBadge}
+      ${x.address ? `<div class="deal-address">${escapeHtml(x.address)}</div>` : ''}
+      ${x.note ? `<div class="deal-note">${escapeHtml(x.note)}</div>` : ''}
+      ${triggerBadge}
+      ${x.link ? `<a class="deal-link" href="${escapeHtml(x.link)}" target="_blank" rel="noopener">View post</a>` : ''}
     </div>
   `;
 }
@@ -794,16 +543,6 @@ function scheduleLabel(x){
   return '';
 }
 
-function wireDeleteButtons(container){
-  container.querySelectorAll('.deal-del').forEach(btn => {
-    btn.addEventListener('click', async () => {
-      deals = deals.filter(x => x.id !== btn.dataset.id);
-      await saveDeals();
-      render();
-    });
-  });
-}
-
 function renderPanel(){
   const d = new Date(selectedDate + 'T00:00:00');
   const dow = d.getDay();
@@ -828,7 +567,6 @@ function renderPanel(){
     return;
   }
   body.innerHTML = dayDeals.map(x => dealCardHtml(x, isToday)).join('');
-  wireDeleteButtons(body);
 }
 
 function renderStanding(){
@@ -836,11 +574,10 @@ function renderStanding(){
   const todayStr = fmt(new Date());
   const standing = sortByTime(deals.filter(x => x.repeat !== 'once' && (!x.endDate || x.endDate >= todayStr)));
   if(!standing.length){
-    body.innerHTML = '<p class="empty-state">No recurring deals yet. Add one and mark it daily or weekly.</p>';
+    body.innerHTML = '<p class="empty-state">No recurring deals yet.</p>';
     return;
   }
   body.innerHTML = standing.map(x => dealCardHtml(x, true)).join('');
-  wireDeleteButtons(body);
 }
 
 function escapeHtml(s){
@@ -911,105 +648,12 @@ document.getElementById('jumpDate').addEventListener('change', (e) => {
   }
 });
 
-const modalWrap = document.getElementById('modalWrap');
-let repeatVal = 'once';
-let selectedDows = new Set();
-
-function setRepeatVal(val){
-  repeatVal = val;
-  document.querySelectorAll('#repeatToggle button').forEach(b => b.classList.toggle('active', b.dataset.val === val));
-  document.getElementById('dateField').style.display = val === 'once' ? '' : 'none';
-  document.getElementById('dowField').style.display = val === 'weekly' ? '' : 'none';
-}
-document.getElementById('repeatToggle').addEventListener('click', (e) => {
-  const btn = e.target.closest('button');
-  if(btn) setRepeatVal(btn.dataset.val);
-});
-document.getElementById('dowPicker').addEventListener('click', (e) => {
-  const btn = e.target.closest('button');
-  if(!btn) return;
-  const dow = Number(btn.dataset.dow);
-  if(selectedDows.has(dow)){ selectedDows.delete(dow); btn.classList.remove('active'); }
-  else { selectedDows.add(dow); btn.classList.add('active'); }
-});
-
-function openModal(){
-  document.getElementById('f-date').value = selectedDate;
-  document.getElementById('f-brand').value = '';
-  document.getElementById('f-discount').value = '';
-  document.getElementById('f-item').value = '';
-  document.getElementById('f-time').value = '';
-  document.getElementById('f-address').value = '';
-  document.getElementById('f-lat').value = '';
-  document.getElementById('f-lng').value = '';
-  document.getElementById('f-link').value = '';
-  document.getElementById('f-note').value = '';
-  document.getElementById('f-err').style.display = 'none';
-  selectedDows = new Set();
-  document.querySelectorAll('#dowPicker button').forEach(b => b.classList.remove('active'));
-  setRepeatVal('once');
-  modalWrap.classList.add('open');
-  document.getElementById('f-brand').focus();
-}
-function closeModal(){ modalWrap.classList.remove('open'); }
-
-document.getElementById('openAdd').addEventListener('click', openModal);
 document.getElementById('standingToggle').addEventListener('click', () => {
   const toggle = document.getElementById('standingToggle');
   const body = document.getElementById('standingBody');
   const expanded = toggle.getAttribute('aria-expanded') === 'true';
   toggle.setAttribute('aria-expanded', String(!expanded));
   body.classList.toggle('collapsed', expanded);
-});
-document.getElementById('panelAdd').addEventListener('click', openModal);
-document.getElementById('cancelAdd').addEventListener('click', closeModal);
-modalWrap.addEventListener('click', (e) => { if(e.target === modalWrap) closeModal(); });
-
-document.getElementById('saveAdd').addEventListener('click', async () => {
-  const date = document.getElementById('f-date').value;
-  const brand = document.getElementById('f-brand').value.trim();
-  const errEl = document.getElementById('f-err');
-  errEl.style.display = 'none';
-
-  if(!brand){
-    errEl.textContent = 'Add a brand to save this deal.';
-    errEl.style.display = 'block';
-    return;
-  }
-  if(repeatVal === 'once' && !date){
-    errEl.textContent = 'Add a date for a one-time deal.';
-    errEl.style.display = 'block';
-    return;
-  }
-  if(repeatVal === 'weekly' && selectedDows.size === 0){
-    errEl.textContent = 'Pick at least one day of the week.';
-    errEl.style.display = 'block';
-    return;
-  }
-
-  const deal = {
-    id: 'd' + Date.now() + Math.random().toString(36).slice(2,7),
-    repeat: repeatVal,
-    date: repeatVal === 'once' ? date : null,
-    daysOfWeek: repeatVal === 'weekly' ? Array.from(selectedDows) : null,
-    brand,
-    discount: document.getElementById('f-discount').value.trim(),
-    item: document.getElementById('f-item').value.trim(),
-    time: document.getElementById('f-time').value.trim(),
-    address: document.getElementById('f-address').value.trim(),
-    lat: document.getElementById('f-lat').value ? Number(document.getElementById('f-lat').value) : null,
-    lng: document.getElementById('f-lng').value ? Number(document.getElementById('f-lng').value) : null,
-    link: document.getElementById('f-link').value.trim(),
-    note: document.getElementById('f-note').value.trim(),
-    createdAt: Date.now()
-  };
-  deals.push(deal);
-  await saveDeals();
-  if(repeatVal === 'once'){
-    selectedDate = date;
-  }
-  closeModal();
-  render();
 });
 
 const DODGERS_TEAM_ID = 119;
