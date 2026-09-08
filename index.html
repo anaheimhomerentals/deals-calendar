@@ -29,37 +29,48 @@
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;}
-  .app{max-width:920px;margin:0 auto;padding:28px 20px 60px;}
+  .app{max-width:640px;margin:0 auto;padding:36px 20px 60px;}
   h1,h2{font-family:'Fraunces',serif;font-weight:600;margin:0;}
-  .topbar{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap;}
-  .topbar h1{font-size:26px;}
-  .topbar p{margin:4px 0 0;color:var(--ink-soft);font-size:14px;}
-  .panel{margin-top:26px;background:var(--paper-raised);border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
-  .empty-state{color:var(--ink-soft);font-size:14px;padding:8px 0 4px;}
-  .deal{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:12px 0;border-top:1px dashed var(--line);}
+  .topbar{margin-bottom:28px;}
+  .topbar h1{font-size:30px;letter-spacing:-0.01em;}
+  .topbar p{margin:6px 0 0;color:var(--ink-soft);font-size:14px;max-width:46ch;}
+  .panel{position:relative;margin-top:26px;background:var(--paper-raised);border:1px solid var(--line);border-radius:5px;padding:22px 22px 8px;}
+  .panel::before,.panel::after{content:'';position:absolute;top:-1px;width:15px;height:15px;background:var(--paper);border:1px solid var(--line);border-radius:50%;}
+  .panel::before{left:-8px;}
+  .panel::after{right:-8px;}
+  .empty-state{color:var(--ink-soft);font-size:14px;padding:8px 0 20px;}
+  .deal{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:14px 0;border-top:1px dashed var(--line);}
   .deal:first-of-type{border-top:none;}
-  .discount{font-family:'Fraunces',serif;font-weight:600;font-size:15px;background:var(--teal-tint);color:var(--teal-ink);border-radius:6px;padding:6px 9px;white-space:nowrap;text-align:center;margin-bottom:4px;}
+  .deal.deal-live{background:linear-gradient(90deg, var(--teal-tint), transparent 60%);margin:0 -22px;padding:14px 22px;border-top-color:transparent;border-left:3px solid var(--teal);}
+  .discount{font-family:'Fraunces',serif;font-weight:600;font-size:15px;background:var(--teal-tint);color:var(--teal-ink);border-radius:4px;padding:6px 10px;white-space:nowrap;text-align:center;transform:rotate(-1.2deg);box-shadow:0 1px 0 rgba(34,27,20,.06);}
+  .deal-price-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+  .deal-toggle{background:none;border:1px solid var(--line);color:var(--ink-soft);font-size:11px;cursor:pointer;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform 0.15s ease;}
+  .deal-toggle:hover{color:var(--red);border-color:var(--red);}
+  .deal-toggle[aria-expanded="true"]{transform:rotate(180deg);}
   .deal-brand{font-weight:600;font-size:15px;}
+  .deal-logo{width:20px;height:20px;border-radius:4px;margin-top:4px;display:block;}
+  .deal-details{margin-top:6px;}
+  .deal-details.collapsed{display:none;}
   .deal-item{font-size:13px;color:var(--ink-soft);margin-top:1px;}
   .deal-note{font-size:12px;color:var(--ink-soft);margin-top:4px;font-style:italic;}
   .deal-link{font-size:12px;color:var(--red);text-decoration:none;display:inline-block;margin-top:4px;}
   .deal-link:hover{text-decoration:underline;}
   .loading{color:var(--ink-soft);font-size:14px;padding:20px 0;}
-  .standing{margin-top:16px;background:var(--paper-raised);border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
-  .standing h2{font-size:18px;margin-bottom:2px;}
+  .standing{margin-top:16px;background:var(--paper-raised);border:1px solid var(--line);border-radius:5px;padding:18px 20px;}
+  .standing h2{font-size:17px;margin-bottom:2px;}
   .standing p.sub{color:var(--ink-soft);font-size:13px;margin:0 0 10px;}
-  .schedule-badge{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;background:var(--mustard-tint);color:var(--mustard-ink);border-radius:6px;padding:3px 7px;white-space:nowrap;}
+  .schedule-badge{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;background:var(--mustard-tint);color:var(--mustard-ink);border-radius:4px;padding:3px 7px;white-space:nowrap;}
   .deal-address{font-size:12px;color:var(--ink-soft);margin-top:3px;}
   .deal-time{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal-ink);margin-top:2px;}
-  .mapwrap{margin-top:16px;background:var(--paper-raised);border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
-  .mapwrap h2{font-size:18px;margin-bottom:2px;}
+  .mapwrap{margin-top:16px;background:var(--paper-raised);border:1px solid var(--line);border-top:3px solid var(--mustard);border-radius:5px;padding:18px 20px;}
+  .mapwrap h2{font-size:17px;margin-bottom:2px;}
   .mapwrap p.sub{color:var(--ink-soft);font-size:13px;margin:0 0 12px;}
-  #map{height:320px;border-radius:8px;border:1px solid var(--line);}
+  #map{height:320px;border-radius:6px;border:1px solid var(--line);}
   .leaflet-popup-content-wrapper{background:var(--paper-raised);color:var(--ink);border-radius:8px;}
   .leaflet-popup-content{font-family:'Inter',sans-serif;font-size:13px;margin:10px 12px;}
   .popup-brand{font-weight:600;margin-bottom:2px;}
   .popup-schedule{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mustard-ink);}
-  .deal-trigger{font-size:11px;margin-top:6px;padding:4px 8px;border-radius:6px;display:inline-block;}
+  .deal-trigger{font-size:11px;margin-top:6px;padding:4px 8px;border-radius:4px;display:inline-block;}
   .deal-trigger-active{background:#E4F3EC;color:#1F6B4A;font-weight:600;}
   .deal-trigger-inactive{background:#F1EDE3;color:var(--ink-soft);}
   .deal-trigger-unknown{background:#F1EDE3;color:var(--ink-soft);}
@@ -69,43 +80,41 @@
   .standing-arrow{font-size:13px;color:var(--ink-soft);transition:transform 0.15s ease;display:inline-block;}
   .standing-toggle[aria-expanded="true"] .standing-arrow{transform:rotate(90deg);}
   .standing-body.collapsed{display:none;}
-  .panel-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:10px;}
-  .dayarrow{background:var(--card);border:1px solid var(--border);border-radius:8px;width:38px;height:38px;font-size:18px;cursor:pointer;color:var(--ink);}
-  .dayarrow:hover{background:var(--mustard-tint);}
+  .panel-nav{display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:12px;}
+  .dayarrow{background:none;border:none;font-size:22px;line-height:1;cursor:pointer;color:var(--ink-soft);padding:4px 6px;}
+  .dayarrow:hover{color:var(--red);}
   .panel-date{text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;}
-  .panel-date h2{margin:0;font-size:19px;white-space:nowrap;}
+  .panel-date h2{margin:0;font-size:20px;white-space:nowrap;}
   .live-clock{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);}
-  .todaybtn{font-size:11px;font-weight:600;border:1px solid var(--teal);color:var(--teal);background:none;border-radius:6px;padding:2px 8px;cursor:pointer;}
+  .todaybtn{font-size:11px;font-weight:600;border:1px solid var(--teal);color:var(--teal);background:none;border-radius:20px;padding:2px 9px;cursor:pointer;}
   .todaybtn:hover{background:var(--teal);color:#fff;}
-  .panel-actions{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
-  .panel-actions input[type="date"]{border:1px solid var(--border);border-radius:8px;padding:6px 8px;background:var(--card);color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;}
-  .live-clock{margin:2px 0 0;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);}
-  .time-badge{font-size:11px;margin-top:6px;padding:4px 8px;border-radius:6px;display:inline-block;font-weight:600;}
+  .panel-actions{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px dashed var(--line);flex-wrap:wrap;}
+  .panel-actions input[type="date"]{border:1px solid var(--border);border-radius:6px;padding:6px 8px;background:var(--card);color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;}
+  .time-badge{font-size:11px;margin-top:6px;padding:4px 8px;border-radius:4px;display:inline-block;font-weight:600;}
   .time-active{background:#E4F3EC;color:#1F6B4A;}
   .time-inactive{background:#F1EDE3;color:var(--ink-soft);font-weight:500;}
 @media (max-width: 480px){
-  .app{padding:16px 12px 48px;}
-  .topbar h1{font-size:21px;}
+  .app{padding:20px 14px 48px;}
+  .topbar h1{font-size:23px;}
   .topbar p{font-size:13px;}
-  .panel, .standing, .mapwrap{padding:14px 14px;}
-  .panel-nav{gap:8px;}
-  .dayarrow{width:32px;height:32px;font-size:16px;flex-shrink:0;}
-  .panel-date h2{font-size:16px;}
+  .panel{padding:18px 16px 6px;}
+  .standing, .mapwrap{padding:14px 14px;}
+  .deal.deal-live{margin:0 -16px;padding:14px 16px;}
+  .panel-nav{gap:10px;}
+  .dayarrow{font-size:20px;flex-shrink:0;}
+  .panel-date h2{font-size:17px;}
   .live-clock{font-size:11px;}
   .panel-actions{gap:8px;}
   #map{height:220px;}
-  .deal{gap:8px;}
-  .discount{min-width:44px;font-size:13px;padding:5px 7px;}
+  .discount{font-size:13px;padding:5px 8px;}
 }
 </style>
 </head>
 <body>
 <div class="app" id="app">
   <div class="topbar">
-    <div>
-      <h1>Deal drop calendar</h1>
-      <p>Deals spotted around town — one-time drops or standing daily and weekly specials.</p>
-    </div>
+    <h1>Deal drop calendar</h1>
+    <p>Deals spotted around town — one-time drops or standing daily and weekly specials.</p>
   </div>
   <div class="panel">
     <div class="panel-nav">
@@ -139,6 +148,7 @@
 
 <script>
 let dodgersDealStatus = 'unknown'; // 'active' | 'inactive' | 'unknown'
+let expandedDeals = new Set();
 let deals = [];
 let selectedDate = fmt(new Date());
 let map = null;
@@ -147,6 +157,7 @@ let markerLayer = null;
 const SEED_DEALS = [
   {
     id: 'seed-midnight-oil',
+    website: 'mnolbc.com',
     repeat: 'weekly',
     date: null,
     daysOfWeek: [3],
@@ -163,6 +174,7 @@ const SEED_DEALS = [
   },
   {
     id: 'seed-rh-bbq',
+    website: 'rh-bbq.com',
     repeat: 'daily',
     date: null,
     daysOfWeek: null,
@@ -185,11 +197,12 @@ const SEED_DEALS = [
     brand: 'Top Sot Buena Park',
     discount: '$13.99',
     item: 'Pork Katsu, Tteokbokki, Mul Naengmyeon, Bibim Naengmyeon, Seafood Pancake',
+    time: '7:00–9:00 PM',
     address: '8840 Knott Ave, Buena Park, CA 90620',
     lat: 33.8345655,
     lng: -118.0107643,
     link: '',
-    note: 'Daily 7:00–9:00 PM',
+    note: '',
     createdAt: Date.now() - 1000
   },
   {
@@ -204,7 +217,7 @@ const SEED_DEALS = [
     lat: 34.0919377,
     lng: -118.037969,
     link: '',
-    note: 'Mon–Thu 4 PM–12 AM, Fri 4 PM–1 AM, Sat 11 AM–1 AM, Sun 11 AM–11 PM',
+    note: '',
     createdAt: Date.now()
   },
   {
@@ -215,11 +228,12 @@ const SEED_DEALS = [
     brand: 'Bud Namu Korean BBQ',
     discount: '$19.95 AYCE lunch',
     item: 'All-you-can-eat Korean BBQ lunch special',
+    time: '11:00 AM–4:00 PM',
     address: '809 S Ardmore Ave, Los Angeles, CA 90005',
     lat: 34.0573696,
     lng: -118.3022344,
     link: '',
-    note: 'Weekdays only, 11:00 AM–4:00 PM',
+    note: 'Weekdays only',
     createdAt: Date.now() + 1000
   },
   {
@@ -230,15 +244,17 @@ const SEED_DEALS = [
     brand: 'Wyn Korean BBQ',
     discount: '$19.99 1+1 Naengmyeon',
     item: 'Mul Naengmyeon (cold noodle soup) — buy one get one',
+    time: '11:00 AM–3:00 PM',
     address: '5471 Beach Blvd, Buena Park, CA 90621',
     lat: 33.8823886,
     lng: -117.9980197,
     link: '',
-    note: 'Weekdays only, 11:00 AM–3:00 PM',
+    note: 'Weekdays only',
     createdAt: Date.now() + 2000
   },
   {
     id: 'seed-fogo-happy-hour',
+    website: 'fogodechao.com',
     repeat: 'daily',
     date: null,
     daysOfWeek: null,
@@ -254,6 +270,7 @@ const SEED_DEALS = [
   },
   {
     id: 'seed-fogo-caipirinhas',
+    website: 'fogodechao.com',
     repeat: 'weekly',
     date: null,
     daysOfWeek: [2],
@@ -275,15 +292,17 @@ const SEED_DEALS = [
     brand: 'Phở Vĩnh Ký',
     discount: '$7.99',
     item: 'Small bowl pho',
+    time: '8:00 AM–3:00 AM',
     address: '8512 Westminster Blvd Ste F, Westminster, CA 92683',
     lat: 33.7589266,
     lng: -117.9805765,
     link: '',
-    note: 'Open daily 8:00 AM–3:00 AM, cash only',
+    note: 'Cash only',
     createdAt: Date.now() + 5000
   },
   {
     id: 'seed-panda-dodgers-2026-09-04',
+    website: 'pandaexpress.com',
     repeat: 'once',
     date: '2026-09-04',
     daysOfWeek: null,
@@ -315,6 +334,7 @@ const SEED_DEALS = [
   },
   {
     id: 'seed-panda-dodgers',
+    website: 'pandaexpress.com',
     repeat: 'daily',
     date: null,
     daysOfWeek: null,
@@ -330,6 +350,7 @@ const SEED_DEALS = [
   },
   {
     id: 'seed-el-pollo-loco-0909',
+    website: 'elpolloloco.com',
     repeat: 'once',
     date: '2026-09-09',
     daysOfWeek: null,
@@ -345,6 +366,7 @@ const SEED_DEALS = [
   },
   {
     id: 'seed-mcdonalds-bigmac-0909',
+    website: 'mcdonalds.com',
     repeat: 'once',
     date: '2026-09-09',
     daysOfWeek: null,
@@ -375,6 +397,7 @@ const SEED_DEALS = [
   },
   {
     id: 'seed-7eleven-slurpee-0907',
+    website: '7-eleven.com',
     repeat: 'once',
     date: '2026-09-07',
     daysOfWeek: null,
@@ -449,9 +472,11 @@ function dealCardHtml(x, showLiveStatus){
     }
   }
   let timeBadge = '';
+  let isLiveNow = false;
   if(x.time && showLiveStatus){
     const status = getTimeStatus(x);
     if(status === 'now'){
+      isLiveNow = true;
       timeBadge = `<div class="time-badge time-active">🟢 Valid right now</div>`;
     } else if(status === 'upcoming'){
       timeBadge = `<div class="time-badge time-inactive">Starts later today at ${escapeHtml(x.time.split(/–|—|-/)[0].trim())}</div>`;
@@ -459,17 +484,25 @@ function dealCardHtml(x, showLiveStatus){
       timeBadge = `<div class="time-badge time-inactive">Already ended for today</div>`;
     }
   }
-  return `
-    <div class="deal" data-id="${x.id}">
-      <div class="discount">${escapeHtml(x.discount || '—')}</div>
-      <div class="deal-brand">${escapeHtml(x.brand || 'Untitled')}${x.repeat !== 'once' ? ` <span class="schedule-badge">${escapeHtml(scheduleLabel(x))}</span>` : ''}</div>
+  const isExpanded = expandedDeals.has(x.id);
+  const detailsHtml = `
       ${x.item ? `<div class="deal-item">${escapeHtml(x.item)}</div>` : ''}
       ${x.time ? `<div class="deal-time">${escapeHtml(x.time)}</div>` : ''}
-      ${timeBadge}
       ${x.address ? `<div class="deal-address">${escapeHtml(x.address)}</div>` : ''}
       ${x.note ? `<div class="deal-note">${escapeHtml(x.note)}</div>` : ''}
       ${triggerBadge}
       ${x.link ? `<a class="deal-link" href="${escapeHtml(x.link)}" target="_blank" rel="noopener">View post</a>` : ''}
+  `;
+  return `
+    <div class="deal${isLiveNow ? ' deal-live' : ''}" data-id="${x.id}">
+      <div class="deal-price-row">
+        <div class="discount">${escapeHtml(x.discount || '—')}</div>
+        <button class="deal-toggle" type="button" data-id="${x.id}" aria-expanded="${isExpanded ? 'true' : 'false'}" aria-label="${isExpanded ? 'Hide details' : 'Show details'}">▼</button>
+      </div>
+      <div class="deal-brand">${escapeHtml(x.brand || 'Untitled')}${x.repeat !== 'once' ? ` <span class="schedule-badge">${escapeHtml(scheduleLabel(x))}</span>` : ''}</div>
+      ${x.website ? `<img class="deal-logo" src="https://www.google.com/s2/favicons?domain=${encodeURIComponent(x.website)}&sz=64" alt="" loading="lazy" onerror="this.remove()">` : ''}
+      ${timeBadge}
+      <div class="deal-details${isExpanded ? '' : ' collapsed'}">${detailsHtml}</div>
     </div>
   `;
 }
@@ -563,7 +596,7 @@ function renderPanel(){
     dayDeals = dayDeals.filter(x => !(x.time && getTimeStatus(x) === 'ended'));
   }
   if(!dayDeals.length){
-    body.innerHTML = '<p class="empty-state">No deals saved for this day yet.</p>';
+    body.innerHTML = '<p class="empty-state">Nothing spotted for this day yet — check back or browse a different date.</p>';
     return;
   }
   body.innerHTML = dayDeals.map(x => dealCardHtml(x, isToday)).join('');
@@ -574,7 +607,7 @@ function renderStanding(){
   const todayStr = fmt(new Date());
   const standing = sortByTime(deals.filter(x => x.repeat !== 'once' && (!x.endDate || x.endDate >= todayStr)));
   if(!standing.length){
-    body.innerHTML = '<p class="empty-state">No recurring deals yet.</p>';
+    body.innerHTML = '<p class="empty-state">No standing deals tracked yet.</p>';
     return;
   }
   body.innerHTML = standing.map(x => dealCardHtml(x, true)).join('');
@@ -654,6 +687,15 @@ document.getElementById('standingToggle').addEventListener('click', () => {
   const expanded = toggle.getAttribute('aria-expanded') === 'true';
   toggle.setAttribute('aria-expanded', String(!expanded));
   body.classList.toggle('collapsed', expanded);
+});
+
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.deal-toggle');
+  if(!btn) return;
+  const id = btn.dataset.id;
+  if(expandedDeals.has(id)) expandedDeals.delete(id);
+  else expandedDeals.add(id);
+  render();
 });
 
 const DODGERS_TEAM_ID = 119;
