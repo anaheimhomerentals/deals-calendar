@@ -149,6 +149,7 @@
 
 <script>
 let dodgersDealStatus = 'unknown'; // 'active' | 'inactive' | 'unknown'
+let lafcDealStatus = 'unknown'; // 'active' | 'inactive' | 'unknown'
 let expandedDeals = new Set();
 let deals = [];
 let selectedDate = fmt(new Date());
@@ -415,9 +416,9 @@ const SEED_DEALS = [
   {
     id: 'seed-mountain-mikes-norwalk',
     website: 'mountainmikespizza.com',
-    repeat: 'daily',
+    repeat: 'weekly',
     date: null,
-    daysOfWeek: null,
+    daysOfWeek: [1,2,3,4,5],
     brand: "Mountain Mike's Pizza",
     discount: '$12 AYCE lunch buffet',
     item: 'All-you-can-eat pizza & salad bar lunch buffet',
@@ -449,18 +450,68 @@ const SEED_DEALS = [
   {
     id: 'seed-carlsjr-timbers',
     website: 'carlsjr.com',
-    repeat: 'daily',
-    date: null,
+    repeat: 'once',
+    date: '2026-09-12',
     daysOfWeek: null,
     brand: "Carl's Jr. (Portland Timbers promo)",
     discount: 'Free item (needs a fresh code)',
     item: 'Free menu item — typically a Famous Star w/ Cheese',
+    time: '5:30 PM–11:59 PM',
     address: '',
     lat: null,
     lng: null,
-    link: 'https://www.timbers.com/carlsjr',
-    note: 'No fixed schedule — a new promo code is posted after each Timbers match when fans vote for "Star of the Match," and each code is only valid for 24 hours. Redeem in the Carl\'s Jr. app under Rewards → Add Promo Code. Get the current code at the link above; the code shared in one Reddit post (TIMBERS772) already expired 9/7/2026.',
+    link: 'https://web.witcontests.com/timbers/campaign/carls-jr-star-of-the-match-202-2026',
+    note: 'Activates Saturday, September 12, 2026 at 5:30 PM PDT — vote for "Star of the Match" via the campaign link above to get a fresh promo code, typically valid 24 hours from activation (so likely still good into 9/13 — check the link to confirm). Redeem in the Carl\'s Jr. app under Rewards → Add Promo Code.',
     createdAt: Date.now() + 15000
+  },
+  {
+    id: 'seed-mcdonalds-cheeseburger-0918',
+    website: 'mcdonalds.com',
+    repeat: 'once',
+    date: '2026-09-18',
+    daysOfWeek: null,
+    brand: "McDonald's",
+    discount: 'Free w/ $1+ purchase',
+    item: 'Double Cheeseburger',
+    address: '',
+    lat: null,
+    lng: null,
+    link: 'https://slickdeals.net/f/19998546-free-mcdonald-s-double-cheeseburger-w-1-purchase-on-9-18',
+    note: 'National Cheeseburger Day. Redeem via the MyMcDonald\'s Rewards app — make any $1+ purchase (excluding tax) to claim. One-time use, valid 9/18 only. Some Slickdeals commenters note offers like this can be location-dependent ("participating" restaurants), so check the app that day to confirm.',
+    createdAt: Date.now() + 16000
+  },
+  {
+    id: 'seed-ono-hawaiian-bbq-0910',
+    website: 'onohawaiianbbq.com',
+    repeat: 'daily',
+    date: null,
+    daysOfWeek: null,
+    brand: 'Ono Hawaiian BBQ',
+    discount: '$5.99 (code LAFCSCORES)',
+    item: 'Chicken Plate Lunch — choice of Hawaiian BBQ Chicken, Chicken Katsu, or Teriyaki Chicken',
+    address: '',
+    lat: null,
+    lng: null,
+    link: 'https://slickdeals.net/f/19994949-ono-hawaiian-bbq-los-angeles-orange-county-area-chicken-plate-lunch-5-99-free-pickup-09-10-2026-only',
+    note: 'Triggered when LAFC scores first in the first half of a match — order ahead for pickup at order.onohawaiianbbq.com, pick "Chicken" category, apply code LAFCSCORES at checkout (reg. price $12.99+). Confirmed to work outside LA County too. Free pickup only.',
+    createdAt: Date.now() + 17000
+  },
+  {
+    id: 'seed-norms-77th-birthday',
+    website: 'norms.com',
+    repeat: 'once',
+    date: '2026-09-24',
+    daysOfWeek: null,
+    brand: "Norms Restaurants",
+    discount: '$0.77',
+    item: 'Short Stack of hotcakes',
+    time: '7:00 AM–11:00 PM',
+    address: '',
+    lat: null,
+    lng: null,
+    link: 'https://slickdeals.net/f/19989726-norms-9-24-short-stack-77-cents-0-77',
+    note: "Celebrating Norms' 77th birthday. Available dine-in, to-go, or via norms.com. One-time, 9/24 only.",
+    createdAt: Date.now() + 18000
   }
 ];
 
@@ -520,6 +571,15 @@ function dealCardHtml(x, showLiveStatus){
       triggerBadge = `<div class="deal-trigger deal-trigger-inactive">Not active today — no Dodgers home win yesterday.</div>`;
     } else {
       triggerBadge = `<div class="deal-trigger deal-trigger-unknown">Couldn't auto-check today's status — <a href="https://www.mlb.com/dodgers/schedule" target="_blank" rel="noopener">check the schedule</a>.</div>`;
+    }
+  }
+  if(x.id === 'seed-ono-hawaiian-bbq-0910'){
+    if(lafcDealStatus === 'active'){
+      triggerBadge += `<div class="deal-trigger deal-trigger-active">🔥 Active — LAFC scored first in the first half of their last match!</div>`;
+    } else if(lafcDealStatus === 'inactive'){
+      triggerBadge += `<div class="deal-trigger deal-trigger-inactive">Not currently active — LAFC didn't score first in the first half last match (or hasn't played recently).</div>`;
+    } else {
+      triggerBadge += `<div class="deal-trigger deal-trigger-unknown">Couldn't auto-check status — <a href="https://www.espn.com/soccer/team/_/id/18966/lafc" target="_blank" rel="noopener">check LAFC's last match</a>.</div>`;
     }
   }
   let timeBadge = '';
@@ -777,8 +837,61 @@ async function checkDodgersDeal(){
   render();
 }
 
+const LAFC_TEAM_ID = 18966;
+
+async function checkLAFCDeal(){
+  // Uses ESPN's free, unofficial public soccer API — no key required, but not
+  // an official documented API, so this is best-effort and may break if ESPN
+  // changes their response format.
+  try{
+    const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/soccer/usa.1/teams/${LAFC_TEAM_ID}/schedule`);
+    if(!res.ok) throw new Error('bad response');
+    const data = await res.json();
+    const events = data.events || [];
+    const completed = events.filter(e => {
+      const status = e.competitions && e.competitions[0] && e.competitions[0].status;
+      return status && status.type && status.type.completed;
+    });
+    if(!completed.length) throw new Error('no completed events found');
+    completed.sort((a, b) => new Date(b.date) - new Date(a.date));
+    const lastEvent = completed[0];
+
+    const y = new Date();
+    y.setDate(y.getDate() - 1);
+    const yesterdayStr = fmt(y);
+    const eventDateStr = fmt(new Date(lastEvent.date));
+    if(eventDateStr !== yesterdayStr){
+      // Deal is only valid the day after a qualifying match — no match yesterday
+      lafcDealStatus = 'inactive';
+      render();
+      return;
+    }
+
+    const summaryRes = await fetch(`https://site.api.espn.com/apis/site/v2/sports/soccer/usa.1/summary?event=${lastEvent.id}`);
+    if(!summaryRes.ok) throw new Error('bad summary response');
+    const summary = await summaryRes.json();
+    const keyEvents = summary.keyEvents || [];
+    const goals = keyEvents.filter(k => k.scoringPlay === true || (k.type && /goal/i.test(k.type.text || '')));
+    if(!goals.length){
+      lafcDealStatus = 'inactive';
+      render();
+      return;
+    }
+    goals.sort((a, b) => (a.clock && a.clock.value || 0) - (b.clock && b.clock.value || 0));
+    const firstGoal = goals[0];
+    const scoredByLAFC = firstGoal.team && String(firstGoal.team.id) === String(LAFC_TEAM_ID);
+    const period = (firstGoal.period && firstGoal.period.number) || 1;
+    const inFirstHalf = period === 1;
+    lafcDealStatus = (scoredByLAFC && inFirstHalf) ? 'active' : 'inactive';
+  }catch(e){
+    lafcDealStatus = 'unknown';
+  }
+  render();
+}
+
 loadDeals();
 checkDodgersDeal();
+checkLAFCDeal();
 setInterval(render, 30000); // keep the live clock and "valid right now" badges fresh
 </script>
 </body>
