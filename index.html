@@ -622,14 +622,8 @@ function dealCardHtml(x, showLiveStatus){
 
 function startMinutes(x){
   if(!x.time) return null;
-  const m = x.time.match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM|am|pm)?/);
-  if(!m) return null;
-  let h = parseInt(m[1], 10);
-  const min = m[2] ? parseInt(m[2], 10) : 0;
-  const ampm = m[3] ? m[3].toUpperCase() : null;
-  if(ampm === 'PM' && h !== 12) h += 12;
-  if(ampm === 'AM' && h === 12) h = 0;
-  return h * 60 + min;
+  const range = parseTimeRange(x.time);
+  return range ? range.start : null;
 }
 
 function parseTimeToMinutes(token, fallbackAmPm){
@@ -672,11 +666,13 @@ function getTimeStatus(x){
 
 function sortByTime(list){
   return list.slice().sort((a,b) => {
-    const ta = startMinutes(a), tb = startMinutes(b);
+    const ra = parseTimeRange(a.time), rb = parseTimeRange(b.time);
+    const ta = ra ? ra.start : null, tb = rb ? rb.start : null;
     if(ta === null && tb === null) return (b.createdAt||0) - (a.createdAt||0);
     if(ta === null) return 1;
     if(tb === null) return -1;
-    return ta - tb;
+    if(ta !== tb) return ta - tb;
+    return ra.end - rb.end; // same start time — earlier-ending event first
   });
 }
 
